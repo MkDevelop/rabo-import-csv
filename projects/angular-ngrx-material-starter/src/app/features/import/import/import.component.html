@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 rtl class="main-heading">{{ 'Import' }}</h1>
+    </div>
+    <div>
+      <!-- in app.component.html -->
+      <ngx-dropzone
+        [multiple]="false"
+        accept="text/csv"
+        (change)="fileChangeListener($event)"
+      >
+        <ngx-dropzone-label>Drop your csv file!</ngx-dropzone-label>
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+    </div>
+    <div [style.visibility]="csvRecords.length === 0 ? 'hidden' : 'visible'">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8 import-table"
+      >
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="surName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sur Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.surName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="issueCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Count</th>
+          <td mat-cell *matCellDef="let element">{{ element.issueCount }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateOfBirth">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date of birth
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.dateOfBirth }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+</div>

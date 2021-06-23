@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SettingsContainerComponent } from './settings/settings-container.component';
+import { ImportComponent } from './import/import.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingsContainerComponent,
+    component: ImportComponent,
     data: { title: 'anms.menu.settings' }
   }
 ];
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SettingsRoutingModule {}
+export class ImportRoutingModule {}

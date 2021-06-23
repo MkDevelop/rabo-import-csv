@@ -25,8 +25,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "",
+      "commit-msg": ""
     }
   },
   "commitlint": {
@@ -62,6 +62,8 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^5.0.1",
     "browser-detect": "^0.2.28",
+    "ngx-csv-parser": "0.0.7",
+    "ngx-dropzone": "^3.0.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.2.0",
     "uuid": "^8.3.1",
