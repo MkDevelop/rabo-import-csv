@@ -54,8 +54,6 @@ export class ImportComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    console.log('hellooo');
-    console.log(this.sort);
     this.dataSource.sort = this.sort;
   }
 
@@ -97,7 +95,6 @@ export class ImportComponent implements AfterViewInit {
   }
 
   onRemove(event) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
     this.csvRecords = [];
   }
