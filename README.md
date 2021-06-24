@@ -1,7 +1,7 @@
 ## Getting started
 
 ```bash
-git clone https://github.com/tomastrajan/angular-ngrx-material-starter.git new-project
+git clone https://github.com/MkDevelop/rabo-import-csv.git new-project
 cd new-project
 npm install
 npm start
