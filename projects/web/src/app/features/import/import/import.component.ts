@@ -33,12 +33,13 @@ const ABC: CsvElement[] = [
   }
 ];
 @Component({
-  selector: 'import-component',
+  selector: 'anms-import-component',
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
 })
 export class ImportComponent implements AfterViewInit {
-  constructor(private ngxCsvParser: NgxCsvParser) {}
+  @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
+  @ViewChild(MatSort) sort: MatSort;
 
   files: File[] = [];
   csvRecords: CsvElement[] = [];
@@ -50,26 +51,10 @@ export class ImportComponent implements AfterViewInit {
     'dateOfBirth'
   ];
 
-  @ViewChild('fileImportInput', { static: false }) fileImportInput: any;
-  @ViewChild(MatSort) sort: MatSort;
+  constructor(private ngxCsvParser: NgxCsvParser) {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-  }
-
-  private camelizeKeys(obj) {
-    if (Array.isArray(obj)) {
-      return obj.map((v) => this.camelizeKeys(v));
-    } else if (obj != null && obj.constructor === Object) {
-      return Object.keys(obj).reduce(
-        (result, key) => ({
-          ...result,
-          [camelCase(key)]: this.camelizeKeys(obj[key])
-        }),
-        {}
-      );
-    }
-    return obj;
   }
 
   fileChangeListener(event): void {
@@ -93,9 +78,22 @@ export class ImportComponent implements AfterViewInit {
         }
       );
   }
-
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
     this.csvRecords = [];
+  }
+  private camelizeKeys(obj) {
+    if (Array.isArray(obj)) {
+      return obj.map((v) => this.camelizeKeys(v));
+    } else if (obj != null && obj.constructor === Object) {
+      return Object.keys(obj).reduce(
+        (result, key) => ({
+          ...result,
+          [camelCase(key)]: this.camelizeKeys(obj[key])
+        }),
+        {}
+      );
+    }
+    return obj;
   }
 }
