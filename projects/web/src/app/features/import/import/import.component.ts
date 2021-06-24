@@ -12,19 +12,8 @@ export interface CsvElement {
   issueCount: string;
   dateOfBirth: string;
 }
-const ABC: CsvElement[] = [
-  {
-    firstName: '',
-    surName: '',
-    issueCount: '',
-    dateOfBirth: ''
-  },
-  {
-    firstName: '',
-    surName: '',
-    issueCount: '',
-    dateOfBirth: ''
-  },
+
+const CSV_SOURCE: CsvElement[] = [
   {
     firstName: '',
     surName: '',
@@ -32,6 +21,7 @@ const ABC: CsvElement[] = [
     dateOfBirth: ''
   }
 ];
+
 @Component({
   selector: 'anms-import-component',
   templateUrl: './import.component.html',
@@ -43,7 +33,7 @@ export class ImportComponent implements AfterViewInit {
 
   files: File[] = [];
   csvRecords: CsvElement[] = [];
-  dataSource = new MatTableDataSource(ABC);
+  dataSource = new MatTableDataSource(CSV_SOURCE);
   displayedColumns: string[] = [
     'firstName',
     'surName',
@@ -59,29 +49,28 @@ export class ImportComponent implements AfterViewInit {
 
   fileChangeListener(event): void {
     const file = event.addedFiles[0];
-    this.files.push(...event.addedFiles);
     if (file.type !== 'text/csv') return;
+    this.files.push(...event.addedFiles);
     this.ngxCsvParser
       .parse(file, { header: true, delimiter: ',' })
       .pipe()
       .subscribe(
         (result: Array<any>) => {
-          console.log('Result', this.camelizeKeys(result));
           this.csvRecords = this.camelizeKeys(result);
           this.dataSource = new MatTableDataSource(this.csvRecords);
-          console.log(this.sort);
           this.dataSource.sort = this.sort;
-          console.log(this.csvRecords);
         },
         (error: NgxCSVParserError) => {
           console.log('Error', error);
         }
       );
   }
+
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
     this.csvRecords = [];
   }
+
   private camelizeKeys(obj) {
     if (Array.isArray(obj)) {
       return obj.map((v) => this.camelizeKeys(v));

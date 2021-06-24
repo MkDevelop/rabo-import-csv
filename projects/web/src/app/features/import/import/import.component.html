@@ -20,7 +20,10 @@
         </ngx-dropzone-preview>
       </ngx-dropzone>
     </div>
-    <div [style.visibility]="csvRecords.length === 0 ? 'hidden' : 'visible'">
+    <div
+      class="import-table-container"
+      [style.visibility]="csvRecords.length === 0 ? 'hidden' : 'visible'"
+    >
       <table
         mat-table
         [dataSource]="dataSource"
