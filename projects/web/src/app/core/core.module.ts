@@ -30,12 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { environment } from '../../environments/environment';
 
-import {
-  AppState,
-  reducers,
-  metaReducers,
-  selectRouterState
-} from './core.state';
+import { AppState, reducers, selectRouterState } from './core.state';
 
 import { TitleService } from './title/title.service';
 import {
@@ -113,7 +108,7 @@ export function httpLoaderFactory(http: HttpClient) {
     MatButtonModule,
 
     // ngrx
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers),
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([SettingsEffects, GoogleAnalyticsEffects]),
     environment.production
