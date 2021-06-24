@@ -59,7 +59,7 @@ export class ImportComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  camelizeKeys(obj) {
+  private camelizeKeys(obj) {
     if (Array.isArray(obj)) {
       return obj.map((v) => this.camelizeKeys(v));
     } else if (obj != null && obj.constructor === Object) {
